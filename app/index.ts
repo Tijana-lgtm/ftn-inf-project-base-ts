@@ -5,7 +5,7 @@ const service = new UserService();
 function renderData(): void {
     service.getAll()
     .then (users => {
-      const table = document.querySelector ('users-tbody');
+      const table = document.querySelector ('#users-tbody');
 
       if (!table) {
         console.error ('Table body not found');
@@ -13,7 +13,7 @@ function renderData(): void {
       }
 
       for (let i=0; i<users.length; i++) {
-        const newRow = document.createElement('td');
+        const newRow = document.createElement('tr');
 
         const cell1 = document.createElement('td')
         cell1.textContent = users[i].id.toString();
