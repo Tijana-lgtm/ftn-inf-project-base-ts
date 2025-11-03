@@ -1,0 +1,38 @@
+$primary-color: #db7ad5;
+$accent-color: #a8fbd3;
+$warn-color: #822571;
+$button-color: #31326f;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: whitesmoke;
+  margin: 20px;
+}
+
+h1, h2, p {
+  color: $warn-color;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 10px;
+    border: 1px solid $button-color;
+    text-align: left;
+  }
+
+  th {
+    background-color: $primary-color;
+    color: white;
+  }
+}
+
+button {
+  background-color: $primary-color;
+  color: $button-color;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}

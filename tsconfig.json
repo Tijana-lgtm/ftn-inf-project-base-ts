@@ -4,5 +4,6 @@
     "sourceMap": true,
     "outDir": "dist",
     "moduleResolution": "node"
-  }
+  },
+  "include": ["app/**/*.ts"]
 }
