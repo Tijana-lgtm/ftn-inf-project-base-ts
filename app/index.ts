@@ -46,6 +46,22 @@ function renderData(): void {
         };
         cell6.appendChild(editButton);
         newRow.appendChild (cell6);
+
+        const cell7 = document.createElement("td");
+        const deleteButton = document.createElement ('button');
+        deleteButton.textContent='Delete';
+        
+        deleteButton.onclick= function () {
+          service.deleteUser(userId.toString())
+                        .then(() => {
+                            window.location.reload();
+                        })
+                        .catch(error => {
+                            console.error(error.status, error.text);
+                        });
+                };
+        cell7.appendChild(deleteButton);
+        newRow.appendChild (cell7);
         }
       })
     .catch(error => {

@@ -77,14 +77,14 @@ export class UserService {
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(formData)
       })
-    .then (response => {
-      if (!response.ok) {
-        return response.text().then (errorMessage => {
+      .then (response => {
+        if (!response.ok) {
+          return response.text().then (errorMessage => {
           throw {status: response.status, message: errorMessage}
+          })
+        }
+        return response.json()
         })
-      }
-      return response.json()
-      })
             .then((user: User) => {
                 return user
             })
@@ -92,5 +92,19 @@ export class UserService {
                 console.error('Error:', error.status)
                 throw error
             })
+    }
+    deleteUser(userId: string): Promise<void> {
+        return fetch(`${this.apiUrl}/${userId}`, { method: 'DELETE' })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(errorMessage => {
+                        throw { status: response.status, message: errorMessage }
+                    })
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error.status)
+                throw error
+            });
     }
 }
