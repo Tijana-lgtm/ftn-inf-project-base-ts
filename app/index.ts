@@ -35,6 +35,17 @@ function renderData(): void {
         cell5.textContent = users[i].birthDate;
         newRow.appendChild(cell5);
         table.appendChild(newRow);
+
+        const cell6 = document.createElement("td");
+        const editButton = document.createElement ('button');
+        editButton.textContent='Edit';
+        
+        const userId = users[i].id;
+        editButton.onclick= function () {
+          window.location.href = `./userForm/userForm.html?id=${userId}`;
+        };
+        cell6.appendChild(editButton);
+        newRow.appendChild (cell6);
         }
       })
     .catch(error => {
