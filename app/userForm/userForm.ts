@@ -1,5 +1,5 @@
 import {UserFormData} from "../models/userFormData.model";
-import {UserService} from "../services/users.servise"
+import {UserService} from "../services/users.service"
 
 const userService = new UserService 
 
@@ -12,18 +12,18 @@ function initializeForm(): void {
 
 function submit (): void {
 
-    const username = (document.querySelector('#username') as HTMLInputElement).value
+    const userName = (document.querySelector('#userName') as HTMLInputElement).value
     const name = (document.querySelector('#name') as HTMLInputElement).value
-    const lastName = (document.querySelector('#lastName') as HTMLInputElement).value
-    const date = (document.querySelector('#birthday') as HTMLInputElement).value
-    const birthday = new Date (date)
+    const surname = (document.querySelector('#surname') as HTMLInputElement).value
+    const date = (document.querySelector('#birthDate') as HTMLInputElement).value
+    const birthDate = new Date (date)
 
-    if (!username || !name || !lastName || !date) {
+    if (!userName || !name || !surname || !date) {
         alert("All fields are required!");
         return
     }
 
-    const formData: UserFormData = { username, name, lastName, birthday }
+    const formData: UserFormData = { userName, name, surname, birthDate }
 
     userService.add(formData)
         .then(() => {
