@@ -26,6 +26,22 @@ function initializeForm(): void {
     }
     
 }
+function showSpinner(): void {
+    (document.querySelector("#loadingSpinner") as HTMLElement).style.display = "block";
+}
+
+function hideSpinner(): void {
+    (document.querySelector("#loadingSpinner") as HTMLElement).style.display = "none";
+}
+
+function handleError(): void {
+    hideSpinner();
+    const button = document.querySelector("#submit") as HTMLButtonElement;
+    button.disabled = false;
+
+    const message = document.querySelector("#message") as HTMLElement;
+    message.textContent = "Došlo je do greške. Pokušajte ponovo!";
+}
 
 function submit(): void {
 
@@ -45,6 +61,7 @@ function submit(): void {
 
     message.textContent = "Kreiranje korisnika...";
     button.disabled = true;
+    showSpinner();
 
     setTimeout(() => { 
         const formData: UserFormData = { userName, name, surname, birthDate };
@@ -54,26 +71,14 @@ function submit(): void {
     const id = urlParams.get('id');
 
     if (id) {
-
-        userService.update(id, formData)
-            .then(() => {
-                window.location.href = '../index.html';
-            })
-            .catch(error => {
-                console.error(error.status, error.text);
-                button.disabled = false;
-            });
-    } else {
-
-        userService.add(formData)
-            .then(() => {
-                window.location.href = '../index.html';
-            })
-            .catch(error => {
-                console.error(error.status, error.text);
-                button.disabled = false;
-            });
-    }
+            userService.update(id, formData)
+                .then(() => window.location.href = '../index.html')
+                .catch(handleError);
+        } else {
+            userService.add(formData)
+                .then(() => window.location.href = '../index.html')
+                .catch(handleError);
+        }
 }, 2000);
 }
 
