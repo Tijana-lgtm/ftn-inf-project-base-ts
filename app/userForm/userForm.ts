@@ -10,7 +10,7 @@ function initializeForm(): void {
     if (id) {
         userService.getById(id)
             .then(user => {
-                (document.querySelector('#username') as HTMLInputElement).value = user.userName;
+                (document.querySelector('#userName') as HTMLInputElement).value = user.userName;
                 (document.querySelector('#name') as HTMLInputElement).value = user.name;
                 (document.querySelector('#lastName') as HTMLInputElement).value = user.surname;
                 (document.querySelector('#birthday') as HTMLInputElement).value = user.birthDate
@@ -24,9 +24,14 @@ function initializeForm(): void {
     if (button) {
         button.addEventListener("click", submit)
     }
+    
 }
 
 function submit(): void {
+
+    const button = document.querySelector("#submit") as HTMLButtonElement;
+    const message = document.querySelector("#message") as HTMLElement;
+
     const userName = (document.querySelector('#userName') as HTMLInputElement).value;
     const name = (document.querySelector('#name') as HTMLInputElement).value;
     const surname = (document.querySelector('#surname') as HTMLInputElement).value;
@@ -38,7 +43,11 @@ function submit(): void {
         return;
     }
 
-    const formData: UserFormData = { userName, name, surname, birthDate };
+    message.textContent = "Kreiranje korisnika...";
+    button.disabled = true;
+
+    setTimeout(() => { 
+        const formData: UserFormData = { userName, name, surname, birthDate };
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -52,6 +61,7 @@ function submit(): void {
             })
             .catch(error => {
                 console.error(error.status, error.text);
+                button.disabled = false;
             });
     } else {
 
@@ -61,9 +71,10 @@ function submit(): void {
             })
             .catch(error => {
                 console.error(error.status, error.text);
+                button.disabled = false;
             });
     }
-
+}, 2000);
 }
 
 document.addEventListener("DOMContentLoaded", initializeForm)
